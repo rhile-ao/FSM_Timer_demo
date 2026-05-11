@@ -1,0 +1,140 @@
+module fsm_timer_demo(out,state,timer,OVR,clk,rst_n);
+
+ // ports
+ input        OVR;
+ input        clk;
+ input        rst_n;
+
+ output reg       out;
+ output reg [1:0] state;
+ output reg [3:0] timer;
+
+ // state assignment
+ localparam [1:0]
+   S0 = 2'b00,
+   S1 = 2'b01,
+   S2 = 2'b10,
+   S3 = 2'b11;
+
+ reg [1:0] nxt;
+ reg [1:0] pre;
+ reg [3:0] t;
+
+ //=========================================
+ // Next-state and timer logic
+ //=========================================
+ always @(pre,t,OVR) begin
+   nxt = pre;
+
+   case(pre)
+     S0: begin
+       if(t == 4'd2)
+         nxt = S1;
+       else
+         nxt = S0;
+     end
+
+     S1: begin
+       if(t == 4'd3)
+         nxt = S2;
+       else
+         nxt = S1;
+     end
+
+     S2: begin
+       if(t == 4'd2)
+         nxt = S0;
+       else
+         nxt = S2;
+     end
+
+     S3: begin
+       if(OVR)
+         nxt = S0;
+       else
+         nxt = S3;
+     end
+
+     default: nxt = S0;
+   endcase
+ end
+
+ //=========================================
+ // Sequential block
+ //=========================================
+ always @(posedge clk or negedge rst_n) begin
+   if(!rst_n) begin
+     pre <= S0;
+     t   <= 4'd0;
+   end
+   else begin
+     pre <= nxt;
+
+     case(pre)
+       S0: begin
+         if(t == 4'd2)
+           t <= 4'd0;
+         else
+           t <= t + 1'b1;
+       end
+
+       S1: begin
+         if(t == 4'd3)
+           t <= 4'd0;
+         else
+           t <= t + 1'b1;
+       end
+
+       S2: begin
+         if(t == 4'd2)
+           t <= 4'd0;
+         else
+           t <= t + 1'b1;
+       end
+
+       S3: begin
+         t <= 4'd0;
+       end
+
+       default: begin
+         t <= 4'd0;
+       end
+     endcase
+   end
+ end
+
+ //=========================================
+ // Output block
+ //=========================================
+ always @(pre,t) begin
+   timer = t;
+
+   case(pre)
+     S0: begin
+       out   = 1'b0;
+       state = S0;
+     end
+
+     S1: begin
+       out   = 1'b0;
+       state = S1;
+     end
+
+     S2: begin
+       out   = 1'b0;
+       state = S2;
+     end
+
+     S3: begin
+       out   = 1'b1;
+       state = S3;
+     end
+
+     default: begin
+       out   = 1'b0;
+       state = S0;
+     end
+   endcase
+ end
+
+endmodule

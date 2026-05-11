@@ -1,0 +1,18 @@
+|fsm_timer_demo
+out <= out.DB_MAX_OUTPUT_PORT_TYPE
+state[0] <= state.DB_MAX_OUTPUT_PORT_TYPE
+state[1] <= state.DB_MAX_OUTPUT_PORT_TYPE
+ovr => nxt.OUTPUTSELECT
+ovr => nxt.OUTPUTSELECT
+ovr => nxt.OUTPUTSELECT
+ovr => nxt.OUTPUTSELECT
+ovr => pre.S3.DATAIN
+ovr => Selector0.IN3
+clk => t[0].CLK
+clk => t[1].CLK
+clk => pre~1.DATAIN
+rst_n => t[0].ACLR
+rst_n => t[1].ACLR
+rst_n => pre~3.DATAIN
+
+

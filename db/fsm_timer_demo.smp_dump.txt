@@ -1,0 +1,7 @@
+
+State Machine - |fsm_timer_demo|pre
+Name pre.S3 pre.S2 pre.S1 pre.S0 
+pre.S0 0 0 0 0 
+pre.S1 0 0 1 1 
+pre.S2 0 1 0 1 
+pre.S3 1 0 0 1 
