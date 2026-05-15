@@ -1,0 +1,11 @@
+Fitter Status : Successful - Fri May 15 08:55:55 2026
+Quartus Prime Version : 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
+Revision Name : top_seq_timer
+Top-level Entity Name : top_seq_timer
+Family : MAX II
+Device : EPM240T100C5
+Timing Models : Final
+Total logic elements : 95 / 240 ( 40 % )
+Total pins : 19 / 80 ( 24 % )
+Total virtual pins : 0
+UFM blocks : 0 / 1 ( 0 % )
